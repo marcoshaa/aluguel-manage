@@ -1,0 +1,14 @@
+{
+    "name": "pessoal/aluguel-manager",
+    "require-dev": {
+        "phpunit/phpunit": "^9"
+    },
+    "autoload": {
+        "files": ["includes/db.php", "includes/helpers.php", "includes/gemini.php"]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    }
+}
