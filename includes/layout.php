@@ -1,6 +1,8 @@
 <?php
 function layoutHead(string $title): void {
-    $base = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'])), '/');
+    // Sempre aponta para a raiz do projeto, independente do subdiretório atual
+    $scriptDir = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'])), '/');
+    $base = preg_replace('|/pages$|', '', $scriptDir);
     $page = basename($_SERVER['PHP_SELF']);
     ?>
 <!DOCTYPE html>
@@ -98,7 +100,7 @@ function layoutFoot(): void {
 </div><!-- .main -->
 
 </div><!-- .layout -->
-<script src="<?php echo rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'])), '/'); ?>/assets/app.js"></script>
+<script src="<?php echo preg_replace('|/pages$|', '', rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'])), '/')); ?>/assets/app.js"></script>
 </body>
 </html>
     <?php
