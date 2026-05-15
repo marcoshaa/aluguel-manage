@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 \"C:\\\\Users\\\\Home\\\\.claude\\\\plugins\\\\marketplaces\\\\ui-ux-pro-max-skill\\\\.claude\\\\skills\\\\ui-ux-pro-max\\\\scripts\\\\search.py\" \"property management admin dashboard rental tool professional\" --design-system -p \"Aluguel Manager\" -f markdown)",
+      "Bash(python \"C:\\\\Users\\\\Home\\\\.claude\\\\plugins\\\\marketplaces\\\\ui-ux-pro-max-skill\\\\.claude\\\\skills\\\\ui-ux-pro-max\\\\scripts\\\\search.py\" \"property management admin dashboard rental tool professional\" --design-system -p \"Aluguel Manager\" -f markdown)",
+      "Bash(php -l includes/layout.php)",
+      "Bash(php -l includes/db.php)",
+      "Bash(php -l includes/helpers.php)",
+      "Bash(php -l index.php)",
+      "Bash(ls -la *.php *.htaccess)",
+      "Bash(php -r \"echo dirname\\('/index.php'\\); echo PHP_EOL; echo rtrim\\(dirname\\('/index.php'\\), '/'\\);\")",
+      "WebFetch(domain:ai.google.dev)"
+    ]
+  }
+}
