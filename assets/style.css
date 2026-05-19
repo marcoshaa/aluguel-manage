@@ -532,18 +532,95 @@ input:focus, select:focus, textarea:focus {
 
 .btn-download:hover { background: var(--primary-dark); color: #fff; }
 
+/* ─── Hamburger button ──────────────────────────────────── */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 8px;
+    background: none;
+    border: none;
+    border-radius: var(--radius-sm);
+    transition: background var(--transition);
+}
+.hamburger:hover { background: var(--primary-light); }
+.hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--text);
+    border-radius: 2px;
+    transition: all 200ms ease;
+}
+/* Hamburger → X quando aberto */
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ─── Sidebar overlay ──────────────────────────────────── */
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.45);
+    z-index: 99;
+}
+.sidebar-overlay.active { display: block; }
+
 /* ─── Responsive ─────────────────────────────────────────── */
 @media (max-width: 768px) {
-    .sidebar { display: none; }
+    .hamburger { display: flex; }
+
+    .sidebar {
+        display: flex;  /* sempre display flex, mas fora da tela */
+        position: fixed;
+        left: -260px;
+        top: 0;
+        height: 100vh;
+        z-index: 100;
+        transition: left 250ms ease;
+        width: 240px;
+    }
+
+    .sidebar.open { left: 0; }
+
     .content { padding: 16px; }
-    .topbar  { padding: 0 16px; }
+    .topbar { padding: 0 16px; }
     .form-grid { grid-template-columns: 1fr; }
     .field.span2 { grid-column: span 1; }
     .cards { grid-template-columns: 1fr 1fr; gap: 10px; }
     .card-value { font-size: 1.5rem; }
-    .chat-wrap { height: calc(100vh - 120px); }
+    .chat-wrap { height: calc(100dvh - 120px); }
+
+    /* Tables no mobile: scroll horizontal */
+    .table-wrap { overflow-x: auto; }
+    table { min-width: 500px; }
+
+    /* Form card */
+    .form-card { padding: 16px; }
+
+    /* Actions buttons mais compactas */
+    .btn-sm { padding: 4px 9px; font-size: .75rem; }
+
+    /* Page title empilhado */
+    .page-title { flex-direction: column; align-items: flex-start; gap: 10px; }
+
+    /* Table header empilhado */
+    .table-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+
+    /* Modal/dialog: full-screen no mobile */
+    dialog {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        margin: 0 !important;
+        border-radius: 0 !important;
+        max-height: 100vh;
+        overflow-y: auto;
+    }
 }
 
 @media (max-width: 400px) {
     .cards { grid-template-columns: 1fr; }
+    .actions { flex-wrap: wrap; }
 }

@@ -58,3 +58,41 @@ document.addEventListener('click', function(e) {
         }
     });
 })();
+
+// Hamburger / sidebar mobile
+(function() {
+    const btn     = document.getElementById('hamburger-btn');
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+    if (!btn || !sidebar || !overlay) return;
+
+    function openSidebar() {
+        sidebar.classList.add('open');
+        overlay.classList.add('active');
+        btn.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeSidebar() {
+        sidebar.classList.remove('open');
+        overlay.classList.remove('active');
+        btn.classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    btn.addEventListener('click', function() {
+        sidebar.classList.contains('open') ? closeSidebar() : openSidebar();
+    });
+
+    overlay.addEventListener('click', closeSidebar);
+
+    // Fechar sidebar ao navegar (click em link da sidebar)
+    sidebar.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', closeSidebar);
+    });
+
+    // Fechar ao redimensionar para desktop
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 768) closeSidebar();
+    });
+})();

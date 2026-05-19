@@ -46,6 +46,10 @@ function layoutHead(string $title): void {
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
             Pagamentos
         </a>
+        <a href="<?= $base ?>/pages/arquivos.php" class="<?= $page === 'arquivos.php' ? 'active' : '' ?>">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
+            Arquivos
+        </a>
         <a href="<?= $base ?>/pages/chat.php" class="<?= $page === 'chat.php' ? 'active' : '' ?>">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
             Chat IA
@@ -88,8 +92,12 @@ function layoutHead(string $title): void {
 
 <div class="main">
     <div class="topbar">
+        <button class="hamburger" id="hamburger-btn" aria-label="Menu" type="button">
+            <span></span><span></span><span></span>
+        </button>
         <span class="topbar-title"><?= h($title) ?></span>
     </div>
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
     <div class="content">
     <?php
 }
