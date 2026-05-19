@@ -12,7 +12,9 @@ function currentUser(): array {
     static $user = null;
     if ($user === null) {
         $db = getDB();
-        $st = $db->prepare("SELECT id, nome, email, gemini_api_key FROM usuarios WHERE id = ?");
+        $st = $db->prepare("SELECT id, nome, email, gemini_api_key, storage_driver,
+            b2_key_id, b2_app_key, b2_bucket_id, b2_bucket_name,
+            gdrive_service_account_json, gdrive_folder_id FROM usuarios WHERE id = ?");
         $st->execute([$_SESSION['user_id']]);
         $user = $st->fetch() ?: [];
     }

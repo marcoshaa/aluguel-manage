@@ -141,4 +141,36 @@ function runMigrations(PDO $pdo): void {
         usado TINYINT(1) NOT NULL DEFAULT 0,
         FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+
+    // ── Storage: colunas em usuarios ─────────────────────────────
+    $colsU = $pdo->query("SELECT COLUMN_NAME FROM information_schema.COLUMNS
+        WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'usuarios'")->fetchAll(PDO::FETCH_COLUMN);
+    $newColsU = [
+        'storage_driver'              => "VARCHAR(10) NOT NULL DEFAULT 'b2'",
+        'b2_key_id'                   => "VARCHAR(150)",
+        'b2_app_key'                  => "VARCHAR(150)",
+        'b2_bucket_id'                => "VARCHAR(100)",
+        'b2_bucket_name'              => "VARCHAR(100)",
+        'gdrive_service_account_json' => "TEXT",
+        'gdrive_folder_id'            => "VARCHAR(100)",
+    ];
+    foreach ($newColsU as $col => $def) {
+        if (!in_array($col, $colsU)) $pdo->exec("ALTER TABLE usuarios ADD COLUMN {$col} {$def}");
+    }
+
+    // ── Tabela arquivos ──────────────────────────────────────────
+    $pdo->exec("CREATE TABLE IF NOT EXISTS arquivos (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        entity_type ENUM('imovel','inquilino','contrato') NOT NULL,
+        entity_id INT NOT NULL,
+        driver VARCHAR(10) NOT NULL,
+        file_key VARCHAR(500) NOT NULL,
+        filename VARCHAR(255) NOT NULL,
+        mime_type VARCHAR(100) NOT NULL,
+        tamanho BIGINT NOT NULL DEFAULT 0,
+        usuario_id INT NOT NULL,
+        created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        INDEX idx_entity (entity_type, entity_id),
+        FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
 }
